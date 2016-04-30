@@ -9,7 +9,6 @@
 
 int main(){
   double **A, **B, **C;
-  double *rowA, *rowB, *tem;
   int i, j, k, N;
 
   printf("Enter N = ");
@@ -17,46 +16,20 @@ int main(){
   A = (double **)malloc(N*sizeof(double *));
   B = (double **)malloc(N*sizeof(double *));
   C = (double **)malloc(N*sizeof(double *));
-  rowA = (double *)malloc(N*N*sizeof(double));
-  rowB = (double *)malloc(N*N*sizeof(double));
-  tem = (double *)malloc(N*N*sizeof(double));
-/*
-//----------wrong----------
+  for(i=0;i<N;i++){
+    A[i] = (double *)malloc(N*sizeof(double));
+    B[i] = (double *)malloc(N*sizeof(double));
+    C[i] = (double *)malloc(N*sizeof(double));
+  }
   for(i=0;i<N;i++){
     for(j=0;j<N;j++){
-      A[i][j] = N*i+j;
+      A[i][j] = N*i+j+1;
+      B[i][j] = N*(i+1)-j;
+      C[i][j] = 0;
     }
   }
-//----------wrong----------
-*/
-
-//test
-  for(i=0;i<N;i++){
-    rowA[i] = i+1;
-    A[i] = rowA+i;
-  }
-//test
-
-/*    correct
-  for(i=0;i<N;i++){
-    rowA[i] = i;
-    A[i] = rowA;
-  }
-      correct
-*/
-  for(i=0;i<N;i++){
-    rowB[i] = N-i;
-    B[i] = rowB;
-  }
-
-  for(i=0;i<N;i++){  //initial C
-    tem[i] = 0;
-    C[i] = tem;
-  }
-
   for(i=0;i<N;i++){
     for(j=0;j<N;j++){
-      C[i][j] = 0;  //reset
       for(k=0;k<N;k++){
         C[i][j] = C[i][j]+A[i][k]*B[k][j];
       }
