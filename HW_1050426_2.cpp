@@ -21,10 +21,11 @@ int main(){
     B[i] = (double *)malloc(N*sizeof(double));
     C[i] = (double *)malloc(N*sizeof(double));
   }
+
   for(i=0;i<N;i++){
     for(j=0;j<N;j++){
       A[i][j] = N*i+j+1;
-      B[i][j] = N*(i+1)-j;
+      B[i][j] = 2*N*N-(i+1)*(2*j+1)+1;
       C[i][j] = 0;
     }
   }
@@ -36,23 +37,21 @@ int main(){
     }
   }
 
-  printf("A =\n");
+  printf("\nA =\n");
   for(i=0;i<N;i++){
     for(j=0;j<N;j++){
       printf("%.2f  ",A[i][j]);
     }
     printf("\n");
   }
-
-  printf("B =\n");
+  printf("\nB =\n");
   for(i=0;i<N;i++){
     for(j=0;j<N;j++){
       printf("%.2f  ",B[i][j]);
     }
     printf("\n");
   }
-
-  printf("A*B =\n");
+  printf("\nA*B =\n");
   for(i=0;i<N;i++){
     for(j=0;j<N;j++){
       printf("%.2f  ",C[i][j]);
