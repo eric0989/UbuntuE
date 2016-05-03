@@ -1,8 +1,6 @@
-function [S_X] = DST(N)
+function [S_X] = DST(X)
 
-for i = 1:N
-  X(i) = i-1;
-endfor
+N = length(X);
 
 Z(1) = 0;
 Z(N+2) = 0;
