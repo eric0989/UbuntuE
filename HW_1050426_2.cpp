@@ -6,10 +6,14 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <time.h>
 
 int main(){
   double **A, **B, **C;
   int i, j, k, N;
+  double t1, t2, T;
+
+  t1 = clock();
 
   printf("Enter N = ");
   scanf("%d",&N);
@@ -58,6 +62,10 @@ int main(){
     }
     printf("\n");
   }
+
+  t2 = clock();
+  T = (t2-t1)/CLOCKS_PER_SEC;
+  printf("\nTime = %f s\n",T);
 
   return 0;
 }
