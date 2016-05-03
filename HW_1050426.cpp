@@ -6,46 +6,39 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <time.h>
 
 int main(){
   double **A, **B, **C;
-  double *rowA, *rowB, *tem;
   int i, j, k, N;
+  double t1, t2, T;
+
+  t1 = clock();
 
   printf("Enter N = ");
   scanf("%d",&N);
   A = (double **)malloc(N*sizeof(double *));
   B = (double **)malloc(N*sizeof(double *));
   C = (double **)malloc(N*sizeof(double *));
-  rowA = (double *)malloc(N*N*sizeof(double));
-  rowB = (double *)malloc(N*N*sizeof(double));
-  tem = (double *)malloc(N*N*sizeof(double));
+  for(i=0;i<N;i++){
+    A[i] = (double *)malloc(N*sizeof(double));
+    B[i] = (double *)malloc(N*sizeof(double));
+    C[i] = (double *)malloc(N*sizeof(double));
+  }
 
-  for(i=0;i<N*N;i++){
-    rowA[i] = i+1;
-    rowB[i] = (N*N-i)*2-1;
-    tem[i] = 0;
-  }
   for(i=0;i<N;i++){
-    A[i] = rowA;
-    rowA = rowA + N;  //rowA is a memory
-  }
-  for(i=0;i<N;i++){
-    B[i] = rowB;
-    rowB = rowB + N;
-  }
-  for(i=0;i<N;i++){  //initial C
-    C[i] = tem;
+    for(j=0;j<N;j++){
+      A[i][j] = N*i+j+1;
+      B[i][j] = 2*N*N-(i+1)*(2*j+1)+1;
+      C[i][j] = 0;
+    }
   }
   for(i=0;i<N;i++){
     for(j=0;j<N;j++){
-      C[i][j] = 0;  //reset
       for(k=0;k<N;k++){
         C[i][j] = C[i][j]+A[i][k]*B[k][j];
       }
-      printf("%.2f  ",C[i][j]);  //
     }
-    printf("\n");  //
   }
 
   printf("\nA =\n");
@@ -69,6 +62,10 @@ int main(){
     }
     printf("\n");
   }
+
+  t2 = clock();
+  T = (t2-t1)/CLOCKS_PER_SEC;
+  printf("\nTime = %f s\n",T);
 
   return 0;
 }
