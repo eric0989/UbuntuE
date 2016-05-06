@@ -1,5 +1,5 @@
 /************************************************************
-*Title:  matrix multiplication                              *
+*Title:  matrix multiplication with double index            *
 *Date:   2016/04/26                                         *
 ************************************************************/
 
@@ -11,7 +11,7 @@
 int main(){
   double **A, **B, **C;
   int i, j, k, N;
-  double t1, t2, T;
+  double t1, t2;
 
   t1 = clock();
 
@@ -35,37 +35,32 @@ int main(){
   }
   for(i=0;i<N;i++){
     for(j=0;j<N;j++){
-      for(k=0;k<N;k++){
+      for(k=0;k<N;k++)
         C[i][j] = C[i][j]+A[i][k]*B[k][j];
-      }
     }
   }
 
   printf("\nA =\n");
   for(i=0;i<N;i++){
-    for(j=0;j<N;j++){
+    for(j=0;j<N;j++)
       printf("%.2f  ",A[i][j]);
-    }
     printf("\n");
   }
   printf("\nB =\n");
   for(i=0;i<N;i++){
-    for(j=0;j<N;j++){
+    for(j=0;j<N;j++)
       printf("%.2f  ",B[i][j]);
-    }
     printf("\n");
   }
   printf("\nA*B =\n");
   for(i=0;i<N;i++){
-    for(j=0;j<N;j++){
+    for(j=0;j<N;j++)
       printf("%.2f  ",C[i][j]);
-    }
     printf("\n");
   }
 
   t2 = clock();
-  T = (t2-t1)/CLOCKS_PER_SEC;
-  printf("\nTime = %f s\n",T);
+  printf("\nTime = %f s\n",(t2-t1)/CLOCKS_PER_SEC);
 
   return 0;
 }
