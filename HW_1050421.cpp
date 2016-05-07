@@ -1,5 +1,5 @@
 /************************************************************
-*Title:  Dynamic Array, dot, norm, translation              *
+*Title:  Dynamic Array, Dot, Norm, Translation              *
 *Date:   2016/04/21                                         *
 ************************************************************/
 

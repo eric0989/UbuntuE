@@ -1,5 +1,5 @@
 /************************************************************
-*Title:  matrix multiplication with double index            *
+*Title:  Matrix Multiplication with Double Index            *
 *Date:   2016/04/26                                         *
 ************************************************************/
 
