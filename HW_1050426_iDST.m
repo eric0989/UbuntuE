@@ -1,7 +1,7 @@
 N = input("Please enter N = ");
 
 for i = 1:N
-  X(i) = i-1;
+	X(i) = i-1;
 endfor
 
 S_X = DST(X)
