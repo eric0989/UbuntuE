@@ -15,7 +15,7 @@ int main(){
 
 	t1 = clock();
 
-	printf("Enter N = ");
+	printf("\n Enter N = ");
 	scanf("%d",&N);
 	A = (double *)malloc(N*N*sizeof(double));
 	B = (double *)malloc(N*N*sizeof(double));
@@ -33,27 +33,27 @@ int main(){
 		}
 		}
 
-	printf("\nA =\n");
+	printf("\n A =\n ");
 	for(i=0;i<N*N;i++){
 		printf("%.2f  ",A[i]);
 		if((i+1)%N==0)
-			printf("\n");
+			printf("\n ");
 	}
-	printf("\nB =\n");
+	printf("\n B =\n ");
 	for(i=0;i<N*N;i++){
 		printf("%.2f  ",B[i]);
 		if((i+1)%N==0)
-			printf("\n");
+			printf("\n ");
 	}
-	printf("\nC =\n");
+	printf("\n C =\n ");
 	for(i=0;i<N*N;i++){
 		printf("%.2f  ",C[i]);
 		if((i+1)%N==0)
-			printf("\n");
+			printf("\n ");
 	}
 
 	t2 = clock();
-	printf("\nTime = %f s\n",(t2-t1)/CLOCKS_PER_SEC);
+	printf("\n Time = %f s\n\n",(t2-t1)/CLOCKS_PER_SEC);
 
 	return 0;
 }

@@ -11,7 +11,7 @@ int main(){
 	double *A, *B, *C, dot=0, normA=0, normB=0;
 	int N;
 
-	printf("Enter N = ");
+	printf("\n Enter N = ");
 	scanf("%d",&N);
 	A = (double *)malloc(N*sizeof(double));
 	B = (double *)malloc(N*sizeof(double));
@@ -28,13 +28,15 @@ int main(){
 
 	normA = sqrt(normA);
 	normB = sqrt(normB);
-	printf("A[i] = sin(i), i=1,2,...,%d\n",N);
-	printf("B[i] = cos(i), i=1,2,...,%d\n",N);
-	printf("(1) A*B = %f\n",dot);
-	printf("(2) normA = %f\n",normA);
-	printf("    normB = %f\n",normB);
-	printf("(3) A-B =\n");
+	printf(" A[i] = sin(i), i=1,2,...,%d\n",N);
+	printf(" B[i] = cos(i), i=1,2,...,%d\n\n",N);
+	printf(" (1) A*B = %f\n\n",dot);
+	printf(" (2) normA = %f\n",normA);
+	printf("     normB = %f\n\n",normB);
+	printf(" (3) A-B =\n");
 	for(int i=0;i<N;i++)
 		printf("\t%f\n",C[i]);
+	printf("\n");
+
 	return 0;
 }

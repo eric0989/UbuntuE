@@ -12,7 +12,7 @@ int main(){
 	double *rowA, *rowB, *tem;
 	int i, j, k, N;
 
-	printf("Enter N = ");
+	printf("\n Enter N = ");
 	scanf("%d",&N);
 	A = (double **)malloc(N*sizeof(double *));
 	B = (double **)malloc(N*sizeof(double *));
@@ -36,6 +36,7 @@ int main(){
 	}
 	for(i=0;i<N;i++)  //initial C
 		C[i] = tem;
+	printf("\n ");   //
 	for(i=0;i<N;i++){
 		for(j=0;j<N;j++){
 			C[i][j] = 0;  //reset
@@ -43,27 +44,28 @@ int main(){
 				C[i][j] = C[i][j]+A[i][k]*B[k][j];
 			printf("%.2f  ",C[i][j]);  //
 		}
-		printf("\n");  //
+		printf("\n ");  //
 	}
 
-	printf("\nA =\n");
+	printf("\n A =\n ");
 	for(i=0;i<N;i++){
 		for(j=0;j<N;j++)
 			printf("%.2f  ",A[i][j]);
-		printf("\n");
+		printf("\n ");
 	}
-	printf("\nB =\n");
+	printf("\n B =\n ");
 	for(i=0;i<N;i++){
 		for(j=0;j<N;j++)
 			printf("%.2f  ",B[i][j]);
-		printf("\n");
+		printf("\n ");
 	}
-	printf("\nA*B =\n");
+	printf("\n A*B =\n ");
 	for(i=0;i<N;i++){
 		for(j=0;j<N;j++)
 			printf("%.2f  ",C[i][j]);
-		printf("\n");
+		printf("\n ");
 	}
+	printf("\n");
 
 	return 0;
 }
