@@ -1,6 +1,6 @@
 /************************************************************
-*Title:  Matrix Multiplication (wrong)                      *
-*Date:   2016/04/26                                         *
+* Title:  Matrix Multiplication (wrong)                     *
+* Date:   2016/04/26                                        *
 ************************************************************/
 
 #include <stdio.h>

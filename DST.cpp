@@ -1,6 +1,6 @@
 /************************************************************
-*Title:  Discrete Sine Transform (DST)                      *
-*Date:   2016/05/03                                         *
+* Title:  Discrete Sine Transform (DST)                     *
+* Date:   2016/05/03                                        *
 ************************************************************/
 
 #include <stdio.h>

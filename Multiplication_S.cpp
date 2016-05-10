@@ -1,6 +1,6 @@
 /************************************************************
-*Title:  Matrix Multiplication with Single Index            *
-*Date:   2016/04/26                                         *
+* Title:  Matrix Multiplication with Single Index           *
+* Date:   2016/04/26                                        *
 ************************************************************/
 
 #include <stdio.h>
