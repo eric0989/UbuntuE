@@ -9,11 +9,11 @@
 #include <time.h>
 #include <fftw3.h>
 
-void dst(fftw_complex *x, fftw_complex *y, int N);
-void initial(fftw_complex *x, int N);
-void extend(fftw_complex *x, int N);
-void fft(fftw_complex *x, fftw_complex *y, int N);
-void print_complex_vector(fftw_complex *x, int N);
+void dst(fftw_complex *, fftw_complex *, int);
+void initial(fftw_complex *, int);
+void extend(fftw_complex *, int);
+void fft(fftw_complex *, fftw_complex *, int);
+void print_complex_vector(fftw_complex *, int);
 
 int main(){
 	int i, N;
