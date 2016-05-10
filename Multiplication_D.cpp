@@ -1,5 +1,5 @@
 /************************************************************
-* Title:  Matrix Multiplication with Double Index           *
+* Title:  Matrix Multiplication with Double Pointer         *
 * Date:   2016/04/26                                        *
 ************************************************************/
 

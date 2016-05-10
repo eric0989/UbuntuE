@@ -1,5 +1,5 @@
 /************************************************************
-* Title:  Matrix Multiplication with Single Index           *
+* Title:  Matrix Multiplication with Single Pointer         *
 * Date:   2016/04/26                                        *
 ************************************************************/
 
