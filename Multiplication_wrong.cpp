@@ -9,7 +9,7 @@
 
 int main(){
 	double **A, **B, **C;
-	double *rowA, *rowB, *tem;
+	double *rowA, *rowB, *tmp;
 	int i, j, k, N;
 
 	printf("\n Enter N = ");
@@ -19,12 +19,12 @@ int main(){
 	C = (double **)malloc(N*sizeof(double *));
 	rowA = (double *)malloc(N*N*sizeof(double));
 	rowB = (double *)malloc(N*N*sizeof(double));
-	tem = (double *)malloc(N*N*sizeof(double));
+	tmp = (double *)malloc(N*N*sizeof(double));
 
 	for(i=0;i<N*N;i++){
 		rowA[i] = i+1;
 		rowB[i] = (N*N-i)*2-1;
-		tem[i] = 0;
+		tmp[i] = 0;
 	}
 	for(i=0;i<N;i++){
 		A[i] = rowA;
@@ -35,7 +35,7 @@ int main(){
 		rowB = rowB + N;
 	}
 	for(i=0;i<N;i++)  //initial C
-		C[i] = tem;
+		C[i] = tmp;
 	printf("\n ");   //
 	for(i=0;i<N;i++){
 		for(j=0;j<N;j++){
