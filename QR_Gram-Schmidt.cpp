@@ -7,76 +7,90 @@
 #include <stdlib.h>
 #include <math.h>
 
-void print_tr2D(double **, int);
-double dot(double **, double **, int, int, int);
+double dot(double *, double *, int, int, int);
+void print_matrix(double *, int);
+void MxM(double *, double *, double *, int);
 
 int main(){
-	double *A, **Q, **tmpQ, *R, **col;
+	double *A, *Q, *R, *tmpQ, *B, *Err;
 	int i, j, k, N;
 
 	printf("\n Enter N = ");
 	scanf("%d",&N);
 	A = (double *)malloc(N*N*sizeof(double));
-	Q = (double **)malloc(N*sizeof(double *));
-	tmpQ = (double **)malloc(N*sizeof(double *));
+	Q = (double *)malloc(N*N*sizeof(double));
 	R = (double *)malloc(N*N*sizeof(double));
-	col = (double **)malloc(N*sizeof(double *));
-	for(i=0;i<N;i++){
-		Q[i] = (double *)malloc(N*sizeof(double));
-		tmpQ[i] = (double *)malloc(N*sizeof(double));
-		col[i] = (double *)malloc(N*sizeof(double));
+	tmpQ = (double *)malloc(N*N*sizeof(double));
+	B = (double *)malloc(N*N*sizeof(double));
+	Err = (double *)malloc(N*N*sizeof(double));
+
+	for(i=0;i<N*N;i++){  // initial A and B
+		A[i] = i;
+		B[i] = 0;
 	}
 
 	for(i=0;i<N*N;i++)
-		A[i] = i+1;
+		tmpQ[i] = A[i];
 	for(i=0;i<N;i++){
-		for(j=0;j<N;j++)
-			col[i][j] = A[N*j+i];
-	}
-	printf("\n transpose col =\n");
-	print_tr2D(col,N);
-	for(i=0;i<N;i++){
-		for(j=0;j<N;j++){
-			Q[i][j] = col[i][j];
+		R[i*N+i] = sqrt(dot(tmpQ,tmpQ,N,i,i));
+		for(k=0;k<N;k++)
+			Q[i+N*k] = tmpQ[i+N*k]/R[i*N+i];
+		for(j=i+1;j<N;j++){
+			R[N*i+j] = dot(Q,tmpQ,N,i,j);
+			for(k=0;k<N;k++)
+				tmpQ[j+N*k] = tmpQ[j+N*k]-R[N*i+j]*Q[i+N*k];
 		}
 	}
-	for(i=1;i<N;i++){
-		for(j=0;j<N;j++){
-			for(k=0;k<i;k++)
-Q[i][j] = Q[i][j]-dot(col,Q,N,i,k)/dot(Q,Q,N,k,k)*Q[k][j];
-		}
-	}
+	MxM(Q,R,B,N);
 	for(i=0;i<N;i++){
-		for(j=0;j<N;j++)
-tmpQ[i][j] = Q[i][j]/sqrt(dot(Q,Q,N,i,i));
+		Err[i] = fabs(B[i]-A[i]);
 	}
 
+	printf("\n A =\n");
+	print_matrix(A,N);
 	printf("\n Q =\n");
-	print_tr2D(tmpQ,N);
-
+	print_matrix(Q,N);
+	printf("\n R =\n");
+	print_matrix(R,N);
+	printf("\n Q*R =\n");
+	print_matrix(B,N);
+	printf("\n error matrix =\n");
+	print_matrix(Err,N);
 	printf("\n");
+
 	return 0;
 }
 
-void print_tr2D(double **x, int N){
-	int i, j;
+double dot(double *x, double *y, int N, int i1, int i2){
+	int i;
+	double dot = 0;
+
+	for(i=0;i<N;i++)
+		dot = dot + x[i*N+i1]*y[i*N+i2];
+
+	return dot;
+}
+
+void print_matrix(double *x, int N){
+	int i;
 
 	printf("\n");
-	for(i=0;i<N;i++){
-		for(j=0;j<N;j++)
-			printf(" %.4f   ",x[j][i]);
-		printf("\n");
+	for(i=0;i<N*N;i++){
+		printf(" %f  ",x[i]);
+		if((i+1)%N==0)	printf("\n");
 	}
 
 	return;
 }
 
-double dot(double **x,double **y, int N, int i1, int i2){
-	int j;
-	double dot = 0;
+void MxM(double *x, double *y, double *z, int N){
+	int i, j, k;
+	for(i=0;i<N;i++){
+		for(j=0;j<N;j++){
+			for(k=0;k<N;k++)
+				z[N*i+j] = z[N*i+j] + x[N*i+k]*y[j+N*k];
+		}
+	}
 
-	for(j=0;j<N;j++)
-		dot = dot+x[i1][j]*y[i2][j];
-
-	return dot;
+	return;
 }
