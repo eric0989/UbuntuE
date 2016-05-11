@@ -10,10 +10,12 @@
 double dot(double *, double *, int, int, int);
 void print_matrix(double *, int);
 void MxM(double *, double *, double *, int);
+double matrix_err(double *, double *, int);
 
 int main(){
-	double *A, *Q, *R, *tmpQ, *B, *Err;
+	double *A, *Q, *R, *tmpQ, *B;
 	int i, j, k, N;
+	double err;
 
 	printf("\n Enter N = ");
 	scanf("%d",&N);
@@ -22,13 +24,12 @@ int main(){
 	R = (double *)malloc(N*N*sizeof(double));
 	tmpQ = (double *)malloc(N*N*sizeof(double));
 	B = (double *)malloc(N*N*sizeof(double));
-	Err = (double *)malloc(N*N*sizeof(double));
 
-	for(i=0;i<N*N;i++){  // initial A and B
+	for(i=0;i<N*N;i++){  // input A and initial B
 		A[i] = i;
 		B[i] = 0;
 	}
-
+	// QR-dcomposition
 	for(i=0;i<N*N;i++)
 		tmpQ[i] = A[i];
 	for(i=0;i<N;i++){
@@ -41,10 +42,8 @@ int main(){
 				tmpQ[j+N*k] = tmpQ[j+N*k]-R[N*i+j]*Q[i+N*k];
 		}
 	}
-	MxM(Q,R,B,N);
-	for(i=0;i<N;i++){
-		Err[i] = fabs(B[i]-A[i]);
-	}
+	MxM(Q,R,B,N);	// Q*R=B
+	err = matrix_err(A, B, N);
 
 	printf("\n A =\n");
 	print_matrix(A,N);
@@ -54,9 +53,7 @@ int main(){
 	print_matrix(R,N);
 	printf("\n Q*R =\n");
 	print_matrix(B,N);
-	printf("\n error matrix =\n");
-	print_matrix(Err,N);
-	printf("\n");
+	printf("\n error = %e\n\n",err);
 
 	return 0;
 }
@@ -76,7 +73,7 @@ void print_matrix(double *x, int N){
 
 	printf("\n");
 	for(i=0;i<N*N;i++){
-		printf(" %f  ",x[i]);
+		printf(" %.2f  ",x[i]);
 		if((i+1)%N==0)	printf("\n");
 	}
 
@@ -93,4 +90,14 @@ void MxM(double *x, double *y, double *z, int N){
 	}
 
 	return;
+}
+
+double matrix_err(double *x, double *y, int N){
+	int i;
+	double err = 0.0;
+
+	for(i=0;i<N*N;i++)
+		if(abs(x[i]-y[i])>err)	err = abs(x[i]-y[i]);
+
+	return err;
 }
