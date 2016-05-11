@@ -6,7 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <time.h>
 #include <fftw3.h>
 
 void dst(fftw_complex *, fftw_complex *, int);
@@ -20,9 +19,6 @@ double err(fftw_complex *, fftw_complex *, int);
 int main(){
 	int i, N;
 	fftw_complex *A, *in, *out;
-	double t1, t2;
-
-	t1 = clock();
 
 	printf("\n Enter N = ");
 	scanf("%d",&N);
@@ -34,7 +30,7 @@ int main(){
 		A[i][0] = i*1.0;
 	for(i=0;i<N;i++)	// copy the value of A
 		in[i][0] = A[i][0];
-	dst(in, out, N);
+	dst(in, out, N);	// from "in" through "out" to "in"
 	printf("\n DST out :\n");
 	print_vector(in, N);
 
@@ -43,10 +39,7 @@ int main(){
 		in[i][0] = in[i][0]*(2.0/(N+1)); //N is int
 	printf("\n iDST out :\n");
 	print_vector(in, N);
-	printf("\n error = %e\n",err(A, in, N));
-
-	t2 = clock();
-	printf("\n Time = %f s\n\n",(t2-t1)/CLOCKS_PER_SEC);
+	printf("\n error = %e\n\n",err(A, in, N));
 
 	return 0;
 }
