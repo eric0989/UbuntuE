@@ -33,11 +33,11 @@ int main(){
 	for(i=0;i<N*N;i++)
 		tmpQ[i] = A[i];
 	for(i=0;i<N;i++){
-		R[i*N+i] = sqrt(dot(tmpQ,tmpQ,N,i,i));
+		R[i*N+i] = sqrt(dot(tmpQ, tmpQ, N, i, i));
 		for(k=0;k<N;k++)
 			Q[i+N*k] = tmpQ[i+N*k]/R[i*N+i];
 		for(j=i+1;j<N;j++){
-			R[N*i+j] = dot(Q,tmpQ,N,i,j);
+			R[N*i+j] = dot(Q, tmpQ, N, i, j);
 			for(k=0;k<N;k++)
 				tmpQ[j+N*k] = tmpQ[j+N*k]-R[N*i+j]*Q[i+N*k];
 		}
@@ -46,13 +46,13 @@ int main(){
 	err = matrix_err(A, B, N);
 
 	printf("\n A =\n");
-	print_matrix(A,N);
+	print_matrix(A, N);
 	printf("\n Q =\n");
-	print_matrix(Q,N);
+	print_matrix(Q, N);
 	printf("\n R =\n");
-	print_matrix(R,N);
+	print_matrix(R, N);
 	printf("\n Q*R =\n");
-	print_matrix(B,N);
+	print_matrix(B, N);
 	printf("\n error = %e\n\n",err);
 
 	return 0;

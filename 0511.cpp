@@ -42,7 +42,7 @@ int main(){
 
 	t3 = clock();
 
-	dgemm_row(A,B,D,N);
+	dgemm_row(A, B, D, N);
 
 	t4 = clock();
 
