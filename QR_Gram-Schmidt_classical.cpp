@@ -97,7 +97,7 @@ double matrix_err(double *x, double *y, int N){
 	double err = 0.0;
 
 	for(i=0;i<N*N;i++)
-		if(abs(x[i]-y[i])>err)	err = abs(x[i]-y[i]);
+		if(fabs(x[i]-y[i])>err)	err = fabs(x[i]-y[i]);
 
 	return err;
 }
