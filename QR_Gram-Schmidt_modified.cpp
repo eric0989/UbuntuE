@@ -10,12 +10,11 @@
 double dot(double *, double *, int, int, int);
 void print_matrix(double *, int);
 void MxM(double *, double *, double *, int);
-double matrix_err(double *, double *, int);
+double err(double *, double *, int);
 
 int main(){
 	double *A, *Q, *R, *tmpQ, *B;
 	int i, j, k, N;
-	double err;
 
 	printf("\n Enter N = ");
 	scanf("%d",&N);
@@ -43,7 +42,6 @@ int main(){
 		}
 	}
 	MxM(Q,R,B,N);	// Q*R=B
-	err = matrix_err(A, B, N);
 
 	printf("\n A =\n");
 	print_matrix(A, N);
@@ -53,7 +51,7 @@ int main(){
 	print_matrix(R, N);
 	printf("\n Q*R =\n");
 	print_matrix(B, N);
-	printf("\n error = %e\n\n",err);
+	printf("\n error = %e\n\n",err(A, B, N));
 
 	return 0;
 }
@@ -82,22 +80,21 @@ void print_matrix(double *x, int N){
 
 void MxM(double *x, double *y, double *z, int N){
 	int i, j, k;
-	for(i=0;i<N;i++){
-		for(j=0;j<N;j++){
+
+	for(i=0;i<N;i++)
+		for(j=0;j<N;j++)
 			for(k=0;k<N;k++)
 				z[N*i+j] = z[N*i+j] + x[N*i+k]*y[j+N*k];
-		}
-	}
 
 	return;
 }
 
-double matrix_err(double *x, double *y, int N){
+double err(double *x, double *y, int N){
 	int i;
-	double err = 0.0;
+	double e = 0.0;
 
 	for(i=0;i<N*N;i++)
-		if(fabs(x[i]-y[i])>err)	err = fabs(x[i]-y[i]);
+		if(fabs(x[i]-y[i])>e)	e = fabs(x[i]-y[i]);
 
-	return err;
+	return e;
 }
