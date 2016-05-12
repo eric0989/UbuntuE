@@ -121,7 +121,7 @@ double err(fftw_complex *x, fftw_complex *y, int N){
 	double e = 0.0;
 
 	for(i=0;i<N;i++)
-		if(fabs(x[i][0]-y[i][0])>e)	e = abs(x[i][0]-y[i][0]);
+		if(fabs(x[i][0]-y[i][0])>e)	e = fabs(x[i][0]-y[i][0]);
 
 	return e;
 }
