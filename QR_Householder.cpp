@@ -99,7 +99,7 @@ void print_matrix(double *x, int m, int n){
 void V_A(double *x, double *y, double *z, int N, int k){
 	int i, j;
 
-	for(i=0;i<N;i++)	// initial tmp1
+	for(i=0;i<N;i++)	// clear tmp1
 		z[i] = 0;
 	for(i=k;i<N;i++)
 		for(j=k;j<N;j++)
@@ -111,7 +111,7 @@ void V_A(double *x, double *y, double *z, int N, int k){
 void VV_A(double *x, double *y, double *z, int N, int k){
 	int i, j;
 
-	for(i=0;i<N*N;i++)	// initial tmp2
+	for(i=0;i<N*N;i++)	// clear tmp2
 		z[i] = 0;
 	for(i=k;i<N;i++)
 		for(j=k;j<N;j++)
