@@ -1,5 +1,5 @@
 /************************************************************
-* Title:  Matrix Multiplication with Single Pointer         *
+* Title:  Matrix Multiplication with blas                   *
 * Date:   2016/05/11                                        *
 ************************************************************/
 
