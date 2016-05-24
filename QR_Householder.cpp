@@ -9,7 +9,8 @@
 
 double dot(double *, double *, int, int);
 void print_matrix(double *, int, int);
-void MxM(double *, double *, double *, int, int, int, int);
+void V_A(double *, double *, double *, int, int);
+void VV_A(double *, double *, double *, int, int);
 double err(double *, double *, int);
 double sign(double *, int);
 
@@ -36,36 +37,27 @@ int main(){
 		B[i] = 0;
 	}
 	// QR-dcomposition
-	for(k=0;k<N;k++){
-	/**/	printf("\n\n For k = %d\n\n",k);
-		e1[k] = 1;
-
-	/**/	printf("\n X =\n");
+	for(k=0;k<N;k++){	//printf("\n\n For k = %d\n\n",k);
+		e1[k] = 1;	//printf("\n X =\n");
 		for(i=k;i<N;i++)/**/{
-			X[i] = R[k+N*i];
-		/**/	printf(" %.2f ",X[i]);}
-
-	/**/	printf("\n V =\n");
+			X[i] = R[k+N*i];	//printf(" %.3f ",X[i]);
+		}	//printf("\n V =\n");
 		for(i=k;i<N;i++)/**/{
 			V[i] = sign(X, k)*sqrt(dot(X, X, k, N))*e1[i]+X[i];
-		/**/	printf(" %.2f ",V[i]);}
-
-	/**/	printf("\n normal V =\n");
+//printf(" %.3f ",V[i]);
+		}	//printf("\n normal V =\n");
 		tmp = sqrt(dot(V, V, k, N));
 		for(i=k;i<N;i++)/**/{
-			V[i] = V[i]/tmp;
-		/**/	printf(" %.2f ",V[i]);}
-		MxM(V, R, tmp1, 1, N-k, N-k, k);
-	/**/	printf("\n tmp1 =\n");
-	/**/	print_matrix(tmp1, 1, N-k);
-		MxM(V, tmp1, tmp2, N-k, 1, N-k, k);
-	/**/	printf("\n tmp2 =\n");
-	/**/	print_matrix(tmp2, N-k, N-k);
-		for(i=k;i<N;i++)
-			for(j=0;j<N-k;j++)
-			R[k+N*i+j] = R[k+N*i+j] - 2*tmp2[k+N*i+j];
-	/**/	printf("\n R =\n");
-	/**/	print_matrix(R, N-k, N-k);
+			V[i] = V[i]/tmp;	//printf(" %.3f ",V[i]);
+		}
+		V_A(V, R, tmp1, N, k);		//printf("\n\n tmp1 =\n");	//print_matrix(tmp1, 1, N-k);
+		VV_A(V, tmp1, tmp2, N, k);	//printf("\n tmp2 =\n");	//print_matrix(tmp2, N-k, N-k);
+		for(i=k;i<N;i++)/**/{
+			for(j=0;j<N-k;j++)/**/{
+				R[k+N*i+j] = R[k+N*i+j] - 2*tmp2[k+N*i+j];
+			}
+		}
+//printf("\n R =\n");	//print_matrix(R, N-k, N-k);	//printf("====================");
 	}
 //	MxM(Q, R, B, N, N, N);	// Q*R=B
 
@@ -97,20 +89,33 @@ void print_matrix(double *x, int m, int n){
 
 	printf("\n");
 	for(i=0;i<m*n;i++){
-		printf(" %.4f  ",x[i]);
+		printf(" %.3f  ",x[i]);
 		if((i+1)%n==0)	printf("\n");
 	}
 
 	return;
 }
 
-void MxM(double *x, double *y, double *z, int p, int q, int r, int t){
-	int i, j, k;
+void V_A(double *x, double *y, double *z, int N, int k){
+	int i, j;
 
-	for(i=t;i<p;i++)
-		for(j=t;j<r;j++)
-			for(k=t;k<q;k++)
-				z[r*i+j] = z[r*i+j] + x[q*i+k]*y[j+r*k];
+	for(i=0;i<N;i++)	// initial tmp1
+		z[i] = 0;
+	for(i=k;i<N;i++)
+		for(j=k;j<N;j++)
+			z[i] = z[i] + x[j]*y[i+N*j];
+
+	return;
+}
+
+void VV_A(double *x, double *y, double *z, int N, int k){
+	int i, j;
+
+	for(i=0;i<N*N;i++)	// initial tmp2
+		z[i] = 0;
+	for(i=k;i<N;i++)
+		for(j=k;j<N;j++)
+			z[N*i+j] = x[i]*y[j];
 
 	return;
 }
