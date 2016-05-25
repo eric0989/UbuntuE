@@ -1,5 +1,5 @@
 /************************************************************
-* Title:  QR Factorize with Gram-Schmidt                    *
+* Title:  QR Decomposition with Gram-Schmidt                *
 * Date:   2016/05/03                                        *
 ************************************************************/
 
