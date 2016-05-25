@@ -11,11 +11,12 @@ double dot(double *, double *, int, int);
 void print_matrix(double *, int, int);
 void V_A(double *, double *, double *, int, int);
 void VV_A(double *, double *, double *, int, int);
+void MxM(double *, double *, double *, int);
 double err(double *, double *, int);
 double sign(double *, int);
 
 int main(){
-	double *A, *Q, *R, *X, *V, *tmp1, *tmp2, *e1 ,*B;
+	double *A, *Q, *tmpQ, *R, *X, *V, *tmp1, *tmp2, *e1 ,*B;
 	int i, j, k, N;
 	double tmp;
 
@@ -23,6 +24,7 @@ int main(){
 	scanf("%d",&N);
 	A = (double *)malloc(N*N*sizeof(double));
 	Q = (double *)malloc(N*N*sizeof(double));
+	tmpQ = (double *)malloc(N*N*sizeof(double));
 	R = (double *)malloc(N*N*sizeof(double));
 	X = (double *)malloc(N*sizeof(double));
 	V = (double *)malloc(N*sizeof(double));
@@ -34,43 +36,52 @@ int main(){
 	for(i=0;i<N*N;i++){  // input A, copy A to R, and initial B
 		A[i] = i;
 		R[i] = i;
+		tmpQ[i] = 0;
 		B[i] = 0;
 	}
+	for(i=0;i<N;i++)
+		tmpQ[N*i+i] = 1;
 	// QR-dcomposition
-	for(k=0;k<N;k++){	//printf("\n\n For k = %d\n\n",k);
-		e1[k] = 1;	//printf("\n X =\n");
-		for(i=k;i<N;i++)/**/{
-			X[i] = R[k+N*i];	//printf(" %.3f ",X[i]);
-		}	//printf("\n V =\n");
-		for(i=k;i<N;i++)/**/{
+	for(k=0;k<N;k++){
+		e1[k] = 1;
+		for(i=k;i<N;i++)	// take column
+			X[i] = R[k+N*i];
+
+		for(i=k;i<N;i++)
 			V[i] = sign(X, k)*sqrt(dot(X, X, k, N))*e1[i]+X[i];
-//printf(" %.3f ",V[i]);
-		}	//printf("\n normal V =\n");
+
 		tmp = sqrt(dot(V, V, k, N));
-		for(i=k;i<N;i++)/**/{
-			V[i] = V[i]/tmp;	//printf(" %.3f ",V[i]);
-		}
-		V_A(V, R, tmp1, N, k);		//printf("\n\n tmp1 =\n");	//print_matrix(tmp1, 1, N-k);
-		VV_A(V, tmp1, tmp2, N, k);	//printf("\n tmp2 =\n");	//print_matrix(tmp2, N-k, N-k);
-		for(i=k;i<N;i++)/**/{
-			for(j=k;j<N;j++)/**/{
-				R[N*i+j] = R[N*i+j] - 2*tmp2[N*i+j];
-			}
-		}
-//printf("\n R =\n");	//print_matrix(R, N-k, N-k);	//printf("====================");
+		for(i=k;i<N;i++)	// normalize V
+			V[i] = V[i]/tmp;
+
+		V_A(V, R, tmp1, N, k);
+		VV_A(V, tmp1, tmp2, N, k);
+		for(i=k;i<N;i++)
+			for(j=0;j<N-k;j++)
+				R[k+N*i+j] = R[k+N*i+j] - 2*tmp2[k+N*i+j];
+
+		V_A(V, tmpQ, tmp1, N, k);
+		VV_A(V, tmp1, tmp2, N, k);
+		for(i=k;i<N;i++)
+			for(j=k;j<N;j++)
+				tmpQ[N*i+j] = tmpQ[N*i+j] - 2*tmp2[N*i+j];
 	}
-//	MxM(Q, R, B, N, N, N);	// Q*R=B
+	for(i=0;i<N;i++)	// transpose
+		for(j=0;j<N;j++)
+			Q[N*i+j] = tmpQ[i+N*j];
+
+	MxM(Q, R, B, N);	// Q*R=B
 
 	printf("\n A =\n");
 	print_matrix(A, N, N);
-//	printf("\n Q =\n");
-//	print_matrix(Q, N, N);
+	printf("\n Q =\n");
+	print_matrix(Q, N, N);
 	printf("\n R =\n");
 	print_matrix(R, N, N);
-/*	printf("\n Q*R =\n");
+	printf("\n Q*R =\n");
 	print_matrix(B, N, N);
 	printf("\n error = %e\n\n",err(A, B, N));
-*/
+
 	return 0;
 }
 
@@ -116,6 +127,17 @@ void VV_A(double *x, double *y, double *z, int N, int k){
 	for(i=k;i<N;i++)
 		for(j=k;j<N;j++)
 			z[N*i+j] = x[i]*y[j];
+
+	return;
+}
+
+void MxM(double *x, double *y, double *z, int N){
+	int i, j, k;
+
+	for(i=0;i<N;i++)
+		for(j=0;j<N;j++)
+			for(k=0;k<N;k++)
+				z[N*i+j] = z[N*i+j] + x[N*i+k]*y[j+N*k];
 
 	return;
 }
