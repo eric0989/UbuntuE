@@ -34,8 +34,8 @@ int main(){
 	B = (double *)malloc(N*N*sizeof(double));
 
 	for(i=0;i<N*N;i++){  // input A, copy A to R, and initial B
-		A[i] = i;
-		R[i] = i;
+		A[i] = i+1;
+		R[i] = A[i];
 		tmpQ[i] = 0;
 		B[i] = 0;
 	}
