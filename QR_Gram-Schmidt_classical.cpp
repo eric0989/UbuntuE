@@ -44,13 +44,13 @@ int main(){
 	MxM(Q,R,B,N);	// Q*R=B
 
 	printf("\n A =\n");
-	print_matrix(A,N);
+	print_matrix(A, N);
 	printf("\n Q =\n");
-	print_matrix(Q,N);
+	print_matrix(Q, N);
 	printf("\n R =\n");
-	print_matrix(R,N);
+	print_matrix(R, N);
 	printf("\n Q*R =\n");
-	print_matrix(B,N);
+	print_matrix(B, N);
 	printf("\n error = %e\n\n",err(A, B, N));
 
 	return 0;
@@ -80,6 +80,7 @@ void print_matrix(double *x, int N){
 
 void MxM(double *x, double *y, double *z, int N){
 	int i, j, k;
+
 	for(i=0;i<N;i++)
 		for(j=0;j<N;j++)
 			for(k=0;k<N;k++)
