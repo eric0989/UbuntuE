@@ -1,5 +1,5 @@
 /************************************************************
-* Title:  QR Decomposition with Gram-Schmidt                *
+* Title:  QR Decomposition with Gram-Schmidt (classical)    *
 * Date:   2016/05/03                                        *
 ************************************************************/
 
@@ -11,6 +11,7 @@ double dot(double *, double *, int, int, int);
 void print_matrix(double *, int);
 void MxM(double *, double *, double *, int);
 double err(double *, double *, int);
+void output(double *, double *, double *, double *, int);
 
 int main(){
 	double *A, *Q, *R, *tmpQ, *B;
@@ -24,10 +25,8 @@ int main(){
 	tmpQ = (double *)malloc(N*N*sizeof(double));
 	B = (double *)malloc(N*N*sizeof(double));
 
-	for(i=0;i<N*N;i++){  // input A and initial B
+	for(i=0;i<N*N;i++)	// input A
 		A[i] = i;
-		B[i] = 0;
-	}
 	// QR-dcomposition
 	for(j=0;j<N;j++){
 		for(k=0;k<N;k++)
@@ -42,16 +41,7 @@ int main(){
 			Q[j+N*k] = tmpQ[j+N*k]/R[N*j+j];
 	}
 	MxM(Q,R,B,N);	// Q*R=B
-
-	printf("\n A =\n");
-	print_matrix(A, N);
-	printf("\n Q =\n");
-	print_matrix(Q, N);
-	printf("\n R =\n");
-	print_matrix(R, N);
-	printf("\n Q*R =\n");
-	print_matrix(B, N);
-	printf("\n error = %e\n\n",err(A, B, N));
+	output(A, Q, R, B, N);
 
 	return 0;
 }
@@ -97,4 +87,18 @@ double err(double *x, double *y, int N){
 		if(fabs(x[i]-y[i])>e)	e = fabs(x[i]-y[i]);
 
 	return e;
+}
+
+void output(double *A, double *Q, double *R, double *B, int N){
+	printf("\n A =\n");
+	print_matrix(A, N);
+	printf("\n Q =\n");
+	print_matrix(Q, N);
+	printf("\n R =\n");
+	print_matrix(R, N);
+	printf("\n Q*R =\n");
+	print_matrix(B, N);
+	printf("\n error = %e\n\n",err(A, B, N));
+
+	return;
 }
