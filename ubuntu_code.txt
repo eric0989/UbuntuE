@@ -1,0 +1,48 @@
+觀看目錄                              ls
+建立目錄                              mkdir *
+找尋所有可能                          [tab]
+
+進目錄                                cd *
+出目錄                                cd ..
+跳到頂層                              cd
+進入系統層                            cd /
+
+建立檔案                              gedit *
+編譯cpp檔(a.out)                      g++
+編譯cpp檔且out為name                  g++ * -o name
+下載package插件                       sudo apt-get install package
+編輯                                  nano
+執行.out檔                            ./*           (不加空格)
+觀看內容                              more *
+關機                                  sudo shutdown -h now
+重開機                                sudo reboot
+遠端                                  ssh
+ssh -X -l mathgrad 140.116.21.13      -X 把結果傳送回來
+(pw:math65156)
+ssh math@140.116.90.212
+(pw:math65100)
+
+刪除                                  rm *
+刪除目錄                              rm -r *
+刪除有防寫保護的資料夾                rm -rf *
+
+查詢code指令內容                      code --help
+
+把git上的專題資料夾拉至當前(cd)位置   git clone 各個專題網址
+複製幾個(2個)檔案至XX資料夾           cp * * ~/目標位址
+複製資料夾                            cp -r 來源位址 ~/目標位址
+移動幾個(2個)檔案至XX資料夾           mv * * ~/
+重新命名(將A移動至當前並改名為B)      mv A B
+
+客製指令                              git add -i
+更新全部檔案(要先進到該資料夾         git add -A
+為該動作(該add)命名                   git commit -m "命名"
+將add和commit推上github               git push
+執行.m檔                              octave *.m
+
+octave裡指令  mesh(矩陣)  (可畫圖)
+讓C可以用fft                          sudo apt-get install libfftw3-dev libfftw3.doc
+
+學長git帳號                           搜尋xflying777 -> users
+
+(若用不同電腦連結可能出錯)            git push --set-upstream origin master
