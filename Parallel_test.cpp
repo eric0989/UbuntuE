@@ -56,6 +56,7 @@ int main(){
 	printf("\n SAXPY : No   parallel:  %.8f s\n",(t2-t1)/CLOCKS_PER_SEC);
 	printf("\n         Use  parallel:  %.8f s\n",(t4-t3)/CLOCKS_PER_SEC);
 
+	
 	printf("\n");
 
 	return 0;
