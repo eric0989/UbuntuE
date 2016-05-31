@@ -39,8 +39,24 @@ int main(){
 		cpA2[i] = A2[i];
 	t4 = clock();
 
-	printf("\n No   parallel:  %.8f s\n",(t2-t1)/CLOCKS_PER_SEC);
-	printf("\n Use  parallel:  %.8f s\n",(t4-t3)/CLOCKS_PER_SEC);
+	printf("\n Copy : No   parallel:  %.8f s\n",(t2-t1)/CLOCKS_PER_SEC);
+	printf("\n        Use  parallel:  %.8f s\n",(t4-t3)/CLOCKS_PER_SEC);
+
+	t1 = clock();
+	for(i=0;i<N;i++)
+		B1[i] = A1[i]-B1[i];
+	t2 = clock();
+
+	t3 = clock();
+	#pragma acc parallel loop
+	for(i=0;i<N;i++)
+		B2[i] = A2[i]-B2[i];
+	t4 = clock();
+
+	printf("\n SAXPY : No   parallel:  %.8f s\n",(t2-t1)/CLOCKS_PER_SEC);
+	printf("\n         Use  parallel:  %.8f s\n",(t4-t3)/CLOCKS_PER_SEC);
+
+	printf("\n");
 
 	return 0;
 }
