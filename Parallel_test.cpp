@@ -34,9 +34,11 @@ int main(){
 	t2 = clock();
 
 	t3 = clock();
+	#pragma acc data copyin(A2[0:N]) copyout(cpA2[0:N]){
 	#pragma acc parallel loop
 	for(i=0;i<N;i++)
 		cpA2[i] = A2[i];
+	}
 	t4 = clock();
 
 	printf("\n Copy : No   parallel:  %.8f s\n",(t2-t1)/CLOCKS_PER_SEC);
