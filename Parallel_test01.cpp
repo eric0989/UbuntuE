@@ -1,5 +1,5 @@
 /************************************************************
-* Title:  Parallel Test                                     *
+* Title:  Parallel Test : Copy, SAXPY                       *
 * Date:   2016/05/24                                        *
 ************************************************************/
 
@@ -9,7 +9,6 @@
 #include <time.h>
 
 void initial(double *, double *, int);
-//void copy(double *, double *, int);
 
 int main(){
 	double *A1, *cpA1, *B1, *A2, *cpA2, *B2;
@@ -74,13 +73,3 @@ void initial(double *x, double *y, int N){
 
 	return;
 }
-
-/*
-void copy(double *x, double *cp, int N){
-	int i;
-
-	for(i=0;i<N;i++)
-		cp[i] = x[i];
-
-	return;
-}*/
