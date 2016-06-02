@@ -1,0 +1,19 @@
+ Enter N = 100
+ No  parallel: 0.00000700 s
+ Use parallel: 0.13578000 s
+ No data copy: 0.00004100 s
+
+ Enter N = 10000
+ No  parallel: 0.00009300 s
+ Use parallel: 0.15204900 s
+ No data copy: 0.00015300 s
+
+ Enter N = 1000000
+ No  parallel: 0.00611800 s
+ Use parallel: 0.12496900 s
+ No data copy: 0.00433400 s
+
+ Enter N = 100000000
+ No  parallel: 0.17924300 s
+ Use parallel: 0.45287200 s
+ No data copy: 0.37688300 s
