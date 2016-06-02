@@ -27,7 +27,7 @@ int main(){
 		normA = normA + A[i]*A[i];
 	t2 = clock();
 	normA = sqrt(normA);
-	printf("\n No  Parallel: %.8f s\n",(t2-t1)/CLOCKS_PER_SEC);
+	printf(" No  parallel: %.8f s\n",(t2-t1)/CLOCKS_PER_SEC);
 /**************************************************/
 	normA = 0;
 	t1 = clock();
@@ -39,19 +39,17 @@ int main(){
 	}
 	t2 = clock();
 	normA = sqrt(normA);
-	printf("\n Use parallel: %.8f s\n",(t2-t1)/CLOCKS_PER_SEC);
+	printf(" Use parallel: %.8f s\n",(t2-t1)/CLOCKS_PER_SEC);
 /**************************************************/
-        normA = 0;
-        t1 = clock();
-        #pragma acc parallel loop
-        for(i=0;i<N;i++)
-                normA = normA + A[i]*A[i];
-        t2 = clock();
-        normA = sqrt(normA);
-        printf("\n Use parallel without data copy:");
-	printf("\n               %.8f s\n",(t2-t1)/CLOCKS_PER_SEC);
+	normA = 0;
+	t1 = clock();
+	#pragma acc parallel loop
+	for(i=0;i<N;i++)
+		normA = normA + A[i]*A[i];
+	t2 = clock();
+	normA = sqrt(normA);
+	printf(" No data copy: %.8f s\n",(t2-t1)/CLOCKS_PER_SEC);
 /**************************************************/
-
 	printf("\n");
 
 	return 0;
