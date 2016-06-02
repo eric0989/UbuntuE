@@ -36,8 +36,9 @@ int main(){
 	t3 = clock();
 	#pragma acc data copyin(A2[0:N]) copyout(cpA2[0:N]){
 	#pragma acc parallel loop
-	for(i=0;i<N;i++)
+	for(i=0;i<N;i++){
 		cpA2[i] = A2[i];
+	}
 	}
 	t4 = clock();
 
