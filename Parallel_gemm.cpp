@@ -8,46 +8,55 @@
 #include <math.h>
 #include <time.h>
 
-void initial(double *, int);
+void initial(double *, double *, int, int, int);
 
 int main(){
-	double *A;
-	int N, i;
-	double normA, t1, t2;
+	double *A, *B, *C1, *C2, *C3;
+	int L, M, N, i, j, k;
+	double t1, t2;
 
-	printf("\n Enter N = ");
-	scanf("%d",&N);
-	A = (double *)malloc(N*sizeof(double));
+	printf("\n General matrix multiplication with LxM * MxN\n");
+	printf(" Enter L  M  N = ");
+	scanf("%d %d %d",&L,&M,&N);
+	A = (double *)malloc(L*M*sizeof(double));
+	B = (double *)malloc(M*N*sizeof(double));
+	C1 = (double *)malloc(L*N*sizeof(double));
+	C2 = (double *)malloc(L*N*sizeof(double));
+	C3 = (double *)malloc(L*N*sizeof(double));
 
-	initial(A, N);
+	initial(A, B, L, M, N);
 /**************************************************/
-	normA = 0;
 	t1 = clock();
-	for(i=0;i<N;i++)
-		normA = normA + A[i]*A[i];
+	for(i=0;i<L;i++)
+		for(j=0;j<N;j++)
+			for(k=0;k<M;k++)
+				C1[N*i+j] = C1[N*i+j] + A[M*i+k]*B[j+N*k];
 	t2 = clock();
-	normA = sqrt(normA);
 	printf(" No  parallel: %.8f s\n",(t2-t1)/CLOCKS_PER_SEC);
 /**************************************************/
-	normA = 0;
 	t1 = clock();
-	#pragma acc data copyin(A[0:N]) copyout(normA)
+	#pragma acc data copyin(A[0:L*M], B[0:M*N]) copyout(C2[0:L*N])
 	{
-	#pragma acc parallel loop
-	for(i=0;i<N;i++)
-		normA = normA + A[i]*A[i];
+	#pragma acc kernels
+	{
+	for(i=0;i<L;i++)
+		for(j=0;j<N;j++)
+			for(k=0;k<M;k++)
+				C2[N*i+j] = C2[N*i+j] + A[M*i+k]*B[j+N*k];
+	}
 	}
 	t2 = clock();
-	normA = sqrt(normA);
 	printf(" Use parallel: %.8f s\n",(t2-t1)/CLOCKS_PER_SEC);
 /**************************************************/
-	normA = 0;
 	t1 = clock();
-	#pragma acc parallel loop
-	for(i=0;i<N;i++)
-		normA = normA + A[i]*A[i];
+	#pragma acc kernels
+	{
+	for(i=0;i<L;i++)
+		for(j=0;j<N;j++)
+			for(k=0;k<M;k++)
+				C3[N*i+j] = C3[N*i+j] + A[M*i+k]*B[j+N*k];
+	}
 	t2 = clock();
-	normA = sqrt(normA);
 	printf(" No data copy: %.8f s\n",(t2-t1)/CLOCKS_PER_SEC);
 /**************************************************/
 	printf("\n");
@@ -55,11 +64,13 @@ int main(){
 	return 0;
 }
 
-void initial(double *x, int N){
+void initial(double *x, double *y , int L, int M, int N){
 	int i;
 
-	for(i=0;i<N;i++)
+	for(i=0;i<L*M;i++)
 		x[i] = i+1;
+	for(i=0;i<M*N;i++)
+		y[i] = 2;
 
 	return;
 }
